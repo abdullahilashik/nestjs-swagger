@@ -10,3 +10,6 @@ export const postsTable = sqliteTable('posts', {
     title: text('title').notNull(),
     description: text('description').notNull()
 });
+
+export type Post = typeof postsTable.$inferSelect;
+export type NewPost = typeof postsTable.$inferInsert;
