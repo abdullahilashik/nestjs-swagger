@@ -8,14 +8,14 @@ import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/sw
 
 const logger = new Logger('SwaggerSetup');
 
-export const setupSwagger = (app: INestApplication) : void => {
+export const setupSwagger = (app: INestApplication): void => {
     const configService = app.get(ConfigService);
-    
+
 
     // Ingress Gate: Check if documentation is enabled in this environment
-    const isEnabled = configService.get<string>('SWAGGER_ENABLED', 'false') == 'true' || 
+    const isEnabled = configService.get<string>('SWAGGER_ENABLED', 'false') == 'true' ||
         configService.get<boolean>('SWAGGER_ENABLED', false) === true;
-    if(!isEnabled){
+    if (!isEnabled) {
         logger.error('Swagger documentation is disabled in this environment. Skipping setup');
         return;
     }
@@ -32,7 +32,7 @@ export const setupSwagger = (app: INestApplication) : void => {
         .setTitle(appName)
         .setVersion('1.0.0')
         .setDescription(
-            'This is the API documentation for the Enterprise Core API. It provides detailed information about the available endpoints, request/response formats, and authentication methods. Use this documentation to understand how to interact with the API effectively.' + 
+            'This is the API documentation for the Enterprise Core API. It provides detailed information about the available endpoints, request/response formats, and authentication methods. Use this documentation to understand how to interact with the API effectively.' +
             `Second line as description. This API is running in ${nodeEnv} environment.`
         )
         .setLicense('Propietary / Enterprise Closed Source', 'https://www.enterprise.com')
