@@ -1,8 +1,9 @@
 import { Body, Controller, HttpCode, HttpStatus, Logger, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
 
+@ApiTags('Posts Managemnet')
 @Controller('posts')
 export class PostsController {
     private readonly logger = new Logger(PostsController.name);
