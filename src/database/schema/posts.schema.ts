@@ -9,8 +9,10 @@ import { usersTable } from './users.schema';
 export const postsTable = sqliteTable('posts', {
     id: integer('id').primaryKey({ autoIncrement: true }),
     title: text('title').notNull(),
-    description: text('description').notNull(),
-    image: text('image').notNull()
+    content: text('description').notNull(),
+    status: text('status').notNull(),
+    tags: text('tags').notNull(),
+    // image: text('image')
 });
 
 export type Post = typeof postsTable.$inferSelect;
