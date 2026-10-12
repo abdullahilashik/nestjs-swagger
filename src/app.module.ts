@@ -8,11 +8,12 @@ import { PostsModule } from './posts/posts.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
+      envFilePath: '.env',
     }),
     DrizzleModule.forRoot({
       drizzle,
-      connection: process.env.DATABASE_URL!
+      connection: process.env.DATABASE_URL || 'file:local.db'
     }),
     PostsModule
   ],
