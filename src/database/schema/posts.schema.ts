@@ -11,8 +11,7 @@ export const postsTable = sqliteTable('posts', {
     title: text('title').notNull(),
     content: text('description').notNull(),
     status: text('status').notNull(),
-    tags: text('tags').notNull(),
-    // image: text('image')
+    tags: text('tags').notNull()
 });
 
 export type Post = typeof postsTable.$inferSelect;

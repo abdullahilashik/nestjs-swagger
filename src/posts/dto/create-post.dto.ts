@@ -6,7 +6,7 @@ export enum PostStatus {
     ARCHIVED = 'ARCHIVED'
 }
 
-export class CreatePostDto {
+export class CreatePostDto {    
     /**
      * The primary title of the blog post
      * @example "How to scale nestjs in enterprise environments"

@@ -13,8 +13,8 @@ export class PostsService {
     ) {}
 
     // create a new post with image upload
-    async createPost(post: CreatePostDto, imagePath: string) {
+    async createPost(post: CreatePostDto) {
         // create the record and send it back
-        // return await this.db.insert(schema.postsTable).values(post).returning();
+        return await this.db.insert(schema.postsTable).values(post).returning();
     }
 }
