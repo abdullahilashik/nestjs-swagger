@@ -6,6 +6,7 @@ import type { SqliteDatabase } from '../database/drizzle.type';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostResponseDto } from './dto/post-response.dto';
 import { eq } from 'drizzle-orm';
+import { FindPostsQueryDto } from './dto/find-posts-query.dto';
 
 @Injectable()
 export class PostsService {
@@ -31,9 +32,15 @@ export class PostsService {
 
 
     // get all post data
-    async getAllPosts(): Promise<PostResponseDto[]> {
-        const posts = await this.db.select().from(schema.posts);
-        return posts.map(item => this.toResponseBody(item));
+    async getAllPosts(payload: FindPostsQueryDto): Promise<PostResponseDto[]> {
+        const posts = await this.db
+            .select()
+            .from(schema.posts)
+            .limit(payload?.limit)
+            .offset((payload.page - 1) * payload.limit);
+        const result = posts.map(item => this.toResponseBody(item));
+
+        return result;
     }
 
     // create a new post with image upload

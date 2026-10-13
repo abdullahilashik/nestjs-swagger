@@ -1,8 +1,9 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Logger, Param, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostResponseDto } from './dto/post-response.dto';
+import { FindPostsQueryDto } from './dto/find-posts-query.dto';
 
 @ApiTags('Posts Managemnet')
 @Controller('posts')
@@ -15,8 +16,15 @@ export class PostsController {
 
 
     @Get()
-    getPosts() {
-        return this.postsService.getAllPosts();
+    @ApiOperation({
+        summary: 'Find all posts'
+    })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Successful data retrieve'
+    })
+    getPosts(@Param() payload: FindPostsQueryDto) {
+        return this.postsService.getAllPosts(payload);
     }
 
     @Post()
@@ -52,6 +60,7 @@ export class PostsController {
         return this.postsService.createPost(createPostDto);
     }
 
+    @Get(':slug')
     @ApiOperation({
         summary: 'Find post by a unique slug',
         description: 'Takes a slug (string) for an individual post and finds the post',
@@ -66,6 +75,13 @@ export class PostsController {
     @ApiResponse({
         status: HttpStatus.NOT_FOUND,
         description: 'Could not find the post for ya'
+    })
+
+    @ApiParam({
+        type: String,
+        name: 'slug',
+        description: 'Provide a standard slug to find a post',
+        example: 'how-to-code-for-real'
     })
 
     async findOne(@Param('slug') slug: string): Promise<PostResponseDto> {
