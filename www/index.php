@@ -4,7 +4,7 @@ echo "<h1>LEMP Stack is Working!</h1>";
 $host = 'mysql';
 $db   = 'exampledb';
 $user = 'user';
-$pass = 'rootpassword';
+$pass = 'userpassword';
 
 $conn = new mysqli($host, $user, $pass, $db);
 
