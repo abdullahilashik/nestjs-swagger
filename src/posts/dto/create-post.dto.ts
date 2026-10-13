@@ -1,4 +1,9 @@
-import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { IsSlug } from "../../common/validators/is-slug.validator";
+import { PostMetadataDto } from "./post-metadata.dto";
+import {
+    Type
+} from 'class-transformer';
 
 export enum PostStatus {
     DRAFT = 'DRAFT',
@@ -6,7 +11,7 @@ export enum PostStatus {
     ARCHIVED = 'ARCHIVED'
 }
 
-export class CreatePostDto {    
+export class CreatePostDto {
     /**
      * The primary title of the blog post
      * @example "How to scale nestjs in enterprise environments"
@@ -18,11 +23,20 @@ export class CreatePostDto {
     title: string;
 
     /**
+     * Unique URL-Friendly slug identifier
+     * @example 'how-to-scale-nestjs-in-enterprise-environments'
+     */
+    @IsString()
+    @IsSlug()
+    @IsNotEmpty()
+    slug: string;
+
+    /**
      * Full markdown content of the article
      * @example "# Introduction\nHere is how we scale..."
      */
     @IsString()
-    @IsNotEmpty()    
+    @IsNotEmpty()
     content: string;
 
     /**
@@ -39,7 +53,12 @@ export class CreatePostDto {
      * @example ['nodejs', 'architecture', 'drizzle']
      */
     @IsArray()
-    @IsString({each: true})
+    @IsString({ each: true })
     @IsOptional()
     tags?: string[];
+
+    @ValidateNested()
+    @Type(() => PostMetadataDto)
+    @IsOptional()
+    metadata: PostMetadataDto;
 }
