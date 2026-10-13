@@ -1,14 +1,6 @@
-FROM ubuntu:latest
+FROM php:8.2-fpm
 
-WORKDIR /app
+# Optional: install extensions (e.g., mysqli for MySQL)
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Install prerequisites and nginx
-RUN apt-get update && apt-get install -y nginx
-
-COPY index.html /var/www/html/index.html
-# Note: Nginx's default public folder on Ubuntu is /var/www/html/
-
-EXPOSE 80
-
-# Run Nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /var/www/html
