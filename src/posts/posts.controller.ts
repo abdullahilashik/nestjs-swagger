@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Logger, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Logger, Param, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -12,6 +12,12 @@ export class PostsController {
     constructor(
         private readonly postsService: PostsService
     ) { }
+
+
+    @Get()
+    getPosts() {
+        return this.postsService.getAllPosts();
+    }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)

@@ -26,6 +26,14 @@ export class PostsService {
             createdAt: record.createdAt,
             updatedAt: record.updatedAt
         }
+
+    }
+
+
+    // get all post data
+    async getAllPosts(): Promise<PostResponseDto[]> {
+        const posts = await this.db.select().from(schema.posts);
+        return posts.map(item => this.toResponseBody(item));
     }
 
     // create a new post with image upload
