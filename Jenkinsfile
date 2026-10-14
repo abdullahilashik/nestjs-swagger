@@ -7,6 +7,8 @@ pipeline {
 
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['dev','stagging','production'], description: 'Pick a environment of your choice')
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Select the image tag you wish to process')
+        booleanParam(name: 'PUSH_IMAGE', defaultValue: true, description: 'Would you like to push this image?')
     }
 
     stages {
