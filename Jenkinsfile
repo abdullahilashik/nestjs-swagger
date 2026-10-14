@@ -31,12 +31,14 @@ pipeline {
 
         stage('Build') {
             steps {
-                if(params.ENVIRONMENT == 'dev') {
-                    echo 'Build progress in dev server'
-                } else if(params.ENVIRONMENT === 'stagging') {
-                    echo 'Build progress in stagging server'
-                } else if (params.ENVIRONMENT === 'production') {
-                    echo 'Build progress in production server!'
+                script {
+                    if(params.ENVIRONMENT == 'dev') {
+                        echo 'Build progress in dev server'
+                    } else if(params.ENVIRONMENT === 'stagging') {
+                        echo 'Build progress in stagging server'
+                    } else if (params.ENVIRONMENT === 'production') {
+                        echo 'Build progress in production server!'
+                    }
                 }
             }
         }
