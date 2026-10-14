@@ -1,9 +1,15 @@
 pipeline {
     agent any
+
+    environment {
+        IMAGE_NAME = 'abdullahilashik/devops:latest'
+    }
+
     stages {
         stage('Prepare') {
             steps {
                 echo 'Just some formalities for the echo!'
+                echo '$(IMAGE_NAME)'
             }
         }
 
