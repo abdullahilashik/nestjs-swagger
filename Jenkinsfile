@@ -5,6 +5,10 @@ pipeline {
         IMAGE_NAME = 'abdullahilashik/devops:latest'
     }
 
+    parameters {
+        choice(name: 'ENVIRONMENT', choices: ['dev','stagging','production'], description: 'Pick a environment of your choice')
+    }
+
     stages {
         stage('Prepare') {
             steps {
@@ -27,7 +31,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'echo Build with maven'
+                if(params.ENVIRONMENT == 'dev') {
+                    echo 'Build progress in dev server'
+                } else if(params.ENVIRONMENT === 'stagging') {
+                    echo 'Build progress in stagging server'
+                } else if (params.ENVIRONMENT === 'production') {
+                    echo 'Build progress in production server!'
+                }
             }
         }
     }
