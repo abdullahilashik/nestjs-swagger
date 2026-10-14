@@ -38,6 +38,7 @@ pipeline {
                         echo 'Build progress in stagging server'
                     } else if (params.ENVIRONMENT == 'production') {
                         echo 'Build progress in production server!'
+                        sh 'docker pull abdullahilashik/devops:latest'
                     }
                 }
             }
