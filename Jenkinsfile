@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Simulating git checkout... (In a real project, this pulls from GitHub)'
-                // git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
+                git url: 'https://github.com/abdullahilashik/nestjs-swagger.git', branch: 'master'
             }
         }
         
