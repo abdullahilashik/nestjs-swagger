@@ -1,6 +1,13 @@
-FROM php:8.2-fpm
+FROM node:latest
 
-# Optional: install extensions (e.g., mysqli for MySQL)
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+WORKDIR /app
 
-WORKDIR /var/www/html
+COPY package*.json .
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+EXPOSE 3000
