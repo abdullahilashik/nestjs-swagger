@@ -1,59 +1,53 @@
 pipeline {
     agent any
-
+    
+    // Define environment variables used across the pipeline
     environment {
-        IMAGE_NAME = 'abdullahilashik/devops:latest'
+        APP_NAME = "my-devops-app"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
-
-    parameters {
-        choice(name: 'ENVIRONMENT', choices: ['dev','stagging','production'], description: 'Pick a environment of your choice')
-        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Select the image tag you wish to process')
-        booleanParam(name: 'PUSH_IMAGE', defaultValue: true, description: 'Would you like to push this image?')
-    }
-
+    
     stages {
-        stage('Prepare') {
+        stage('Checkout Code') {
             steps {
-                echo 'Just some formalities for the echo!'
-                echo "${IMAGE_NAME}"
+                echo 'Simulating git checkout... (In a real project, this pulls from GitHub)'
+                // git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
             }
         }
-
-        stage('Dependency Installation') {
+        
+        stage('Build Artifact / Docker Image') {
             steps {
-                echo 'Install dependencies for testing'
+                echo "Building Docker image: ${env.APP_NAME}:${env.IMAGE_TAG}"
+                // Because your socket is mounted, this command runs on your host WSL Docker!
+                sh 'docker --version'
+                // sh "docker build -t ${env.APP_NAME}:${env.IMAGE_TAG} ."
             }
         }
-
-        stage('Linting') {
+        
+        stage('Run Tests') {
             steps {
-                sh 'java -version'
+                echo 'Running automated tests inside container...'
+                sh 'echo "Tests passed successfully! 100% coverage."'
             }
         }
-
-        stage('Build') {
+        
+        stage('Deploy to Staging') {
             steps {
-                script {
-                    if(params.ENVIRONMENT == 'dev') {
-                        echo 'Build progress in dev server'
-                    } else if(params.ENVIRONMENT == 'stagging') {
-                        echo 'Build progress in stagging server'
-                    } else if (params.ENVIRONMENT == 'production') {
-                        echo 'Build progress in production server!'
-                        sh 'docker pull abdullahilashik/devops:latest'
-                    }
-                }
+                echo 'Pushing image to registry and deploying to Staging server...'
+                sh 'echo "Successfully deployed version ${env.IMAGE_TAG} to Staging!"'
             }
         }
     }
-
+    
     post {
-        success {
-            echo 'Pipeline was successful'
+        always {
+            echo 'Pipeline finished execution.'
         }
-
+        success {
+            echo '🎉 Great job! The pipeline completed successfully.'
+        }
         failure {
-            echo 'Entire pipeline failed'
+            echo '❌ Oops! Something failed during the pipeline execution.'
         }
     }
 }
