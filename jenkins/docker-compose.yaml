@@ -10,6 +10,8 @@ services:
       - jenkins_home:/var/jenkins_home
       # Mounts the Windows Docker Desktop socket so Jenkins can use Docker/Compose
       - //./pipe/docker_engine://./pipe/docker_engine
+    environment:
+      - DOCKER_HOST=tcp://host.docker.internal:2375
 
 volumes:
   jenkins_home:
