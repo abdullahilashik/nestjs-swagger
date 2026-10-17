@@ -1,0 +1,15 @@
+services:
+  jenkins:
+    build: .
+    container_name: jenkins_container
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      # Mounts the Windows Docker Desktop socket so Jenkins can use Docker/Compose
+      - //./pipe/docker_engine://./pipe/docker_engine
+
+volumes:
+  jenkins_home:
