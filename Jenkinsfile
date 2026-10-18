@@ -87,8 +87,9 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    sh 'echo $DOCKER_CREDENTIALS_PASW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
-                    sh 'docker push $IMAGE_NAME:latest'
+                    // sh 'echo $DOCKER_CREDENTIALS_PASW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
+                    // sh 'docker push $IMAGE_NAME:latest'
+                    sh 'docker run -itd -p3000:3000 -e NODE_ENV=development -e SWAGGER_ENABLED=true -e SWAGGER_PATH=docs $IMAGE_NAME:latest'
                 }
             }
         }
