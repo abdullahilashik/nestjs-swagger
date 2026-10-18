@@ -9,6 +9,7 @@ RUN npm ci
 
 COPY . .
 
+RUN rm -rf local.db
 RUN npm run build
 RUN npx drizzle-kit migrate
 RUN npx drizzle-kit generate
