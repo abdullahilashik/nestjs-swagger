@@ -11,7 +11,7 @@ COPY . .
 
 RUN npm run build
 RUN npx drizzle-kit migrate
-RUN npx drizzle-kit push
+RUN npx drizzle-kit generate
 
 # --- Stage 2: Production ---
 FROM node:20-alpine
