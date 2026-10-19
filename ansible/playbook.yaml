@@ -1,0 +1,8 @@
+- name: Use Ansible Vault
+  hosts: localhost
+  vars_files:
+    - secrets.yaml
+  tasks:
+    - name: Show Encrypted Password
+      debug:
+        msg: "The DB Password is {{ db_password }}"
