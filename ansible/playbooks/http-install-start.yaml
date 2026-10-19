@@ -1,0 +1,13 @@
+---
+- name: Http installation and start
+  hosts: all
+  tasks:
+    - name: Install Http
+      yum:
+        name: httpd
+        state: present
+    
+    - name: Start httpd
+      service:
+        name: httpd
+        state: started

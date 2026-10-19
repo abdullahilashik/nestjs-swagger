@@ -1,0 +1,7 @@
+---
+
+- name: Create a new file using ansible
+  hosts: all
+  tasks:
+    - name: Create a new file      
+    
