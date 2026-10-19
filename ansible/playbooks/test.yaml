@@ -1,6 +1,6 @@
 ---
 - name: Install and Start Apache2 on Ubuntu
-  hosts: webservers
+  hosts: all
   become: yes
   tasks:
     - name: Update apt cache
