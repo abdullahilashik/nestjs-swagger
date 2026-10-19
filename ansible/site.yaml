@@ -1,0 +1,5 @@
+- name: Setup Apache server
+  hosts: localhost
+  become: true
+  roles:
+    - apache_role

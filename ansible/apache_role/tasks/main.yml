@@ -1,0 +1,21 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for apache_role
+- name: Install apache
+  apt:
+    name: apache2
+    state: present
+  become: true
+
+- name: Copy HTML template
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  become: true
+
+- name: Start Apache
+  service:
+    name: apache2
+    status: started
+    enabled: true
+  become: true
