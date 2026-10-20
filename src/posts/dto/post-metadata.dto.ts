@@ -9,7 +9,7 @@ export class PostMetadataDto {
     @IsString()
     @MaxLength(160)
     @IsOptional()
-    setDescription?: string;
+    setDescription?: string | undefined;
 
     /**
      * Canonical URL for SEO deduplication
@@ -17,5 +17,5 @@ export class PostMetadataDto {
      */
     @IsUrl()
     @IsOptional()
-    canonicalUrl?: string;
+    canonicalUrl?: string | undefined;
 }

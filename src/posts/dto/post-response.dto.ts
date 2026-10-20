@@ -48,11 +48,11 @@ export class PostResponseDto {
      * ISO 8601 creation timestamp
      * @example '2026-10-12T16:24:00-000Z'
      */
-    createdAt: string;
+    createdAt: Date;
 
     /**
      * ISO 8061 creation timestamp
      * @example '2026-10-12T16:24:00-000Z'
      */
-    updatedAt: string;
+    updatedAt: Date;
 }

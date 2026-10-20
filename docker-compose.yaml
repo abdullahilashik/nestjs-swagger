@@ -1,23 +1,23 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USER=postgres_user
-      - DB_PASSWORD=postgres_password
-      - DB_NAME=postgres_database
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - nestnet
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - DB_HOST=postgres
+  #     - DB_PORT=5432
+  #     - DB_USER=postgres_user
+  #     - DB_PASSWORD=postgres_password
+  #     - DB_NAME=postgres_database
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   networks:
+  #     - nestnet
 
   postgres:
     image: postgres:15    

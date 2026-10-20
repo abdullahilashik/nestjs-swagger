@@ -1,7 +1,7 @@
 // import { sql } from 'drizzle-orm';
 // import { integer, text } from 'drizzle-orm/sqlite-core';
 
-import { timestamp, uuid } from "drizzle-orm/pg-core";
+import { timestamp, integer } from "drizzle-orm/pg-core";
 
 // export const baseSchema = {
 //     id: integer('id').primaryKey({ autoIncrement: true }),
@@ -11,7 +11,7 @@ import { timestamp, uuid } from "drizzle-orm/pg-core";
 
 
 export const baseSchema = {
-    id: uuid('id').primaryKey(),
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow()
 }
