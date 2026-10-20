@@ -3,40 +3,61 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nestjs_app
     restart: always
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USER=user
-      - DB_PASSWORD=userpassword
-      - DB_NAME=exampledb
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_NAME=postgres_database
     depends_on:
-      - mysql
+      postgres:
+        condition: service_healthy
     networks:
       - nestnet
 
-  mysql:
-    image: mysql:8.0
-    container_name: mysql_db
+  postgres:
+    image: postgres:15    
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: postgres_database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres_user -d postgres_database"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
+      - "5432:5432"
     networks:
       - nestnet
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: mysql_db
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: rootpassword
+  #     MYSQL_DATABASE: exampledb
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: userpassword
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #   networks:
+  #     - nestnet
 
 volumes:
-  db_data:
+  # db_data:
+  postgres-data:
 
 networks:
   nestnet:
