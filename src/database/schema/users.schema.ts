@@ -1,12 +1,8 @@
-import {
-    sqliteTable,
-    integer,
-    text
-} from 'drizzle-orm/sqlite-core';
 import { baseSchema } from './base';
+import { pgTable, text } from 'drizzle-orm/pg-core';
 
 
-export const usersTable = sqliteTable('users', {
+export const usersTable = pgTable('users', {
     ...baseSchema,
     firstName: text('first_name').notNull(),
     lastName: text('last_name').notNull(),
